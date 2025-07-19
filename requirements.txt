@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+pillow
+tensorflow
+scikit-learn
+speechrecognition
+gtts
+python-multipart
+pydantic
+sqlite3
+requests
