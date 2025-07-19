@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Government Schemes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>📢 Farmer Loan & Scheme Information</h1>
+
+  <section id="schemes"></section>
+
+  <script>
+    async function fetchSchemes() {
+      const response = await fetch('http://localhost:8000/schemes');
+      const data = await response.json();
+
+      const section = document.getElementById('schemes');
+      data.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'scheme';
+        div.innerHTML = `
+          <h3>${item.title}</h3>
+          <p>${item.description}</p>
+          <a href="${item.link}" target="_blank">🔗 More Info</a>
+        `;
+        section.appendChild(div);
+      });
+    }
+
+    fetchSchemes();
+  </script>
+</body>
+</html>

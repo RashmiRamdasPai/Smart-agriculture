@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Detection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>🦠 Plant Disease Detection</h1>
+    <form id="diseaseForm" enctype="multipart/form-data">
+        <label>Select Leaf Image: <input type="file" name="file" accept="image/*" required></label><br>
+        <button type="submit">Detect Disease</button>
+    </form>
+
+    <h2 id="result"></h2>
+
+    <script>
+        const form = document.getElementById('diseaseForm');
+        const result = document.getElementById('result');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+
+            const response = await fetch('http://localhost:8000/predict_disease', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+            result.innerHTML = `
+                ✅ Disease: <strong>${data.disease}</strong><br>
+                🔬 Confidence: ${data.confidence}%
+            `;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Recommendation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>🌾 Crop Recommendation</h1>
+    <form id="cropForm">
+        <label>Nitrogen (N): <input type="number" step="0.1" name="N" required></label><br>
+        <label>Phosphorus (P): <input type="number" step="0.1" name="P" required></label><br>
+        <label>Potassium (K): <input type="number" step="0.1" name="K" required></label><br>
+        <label>Temperature (°C): <input type="number" step="0.1" name="temperature" required></label><br>
+        <label>Humidity (%): <input type="number" step="0.1" name="humidity" required></label><br>
+        <label>pH: <input type="number" step="0.1" name="ph" required></label><br>
+        <label>Rainfall (mm): <input type="number" step="0.1" name="rainfall" required></label><br>
+        <button type="submit">Get Recommendation</button>
+    </form>
+
+    <h2 id="result"></h2>
+
+    <script>
+        const form = document.getElementById('cropForm');
+        const result = document.getElementById('result');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const payload = {};
+            formData.forEach((value, key) => payload[key] = parseFloat(value));
+
+            const response = await fetch('http://localhost:8000/predict_crop', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+            result.textContent = `✅ Recommended Crop: ${data.recommended_crop}`;
+        });
+    </script>
+</body>
+</html>
