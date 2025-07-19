@@ -1,0 +1,6 @@
+N,P,K,temperature,humidity,ph,rainfall,label
+90,42,43,22.5,80,6.5,200,rice
+85,58,44,25.0,82,7.0,220,wheat
+60,35,40,26.3,75,6.8,190,cotton
+78,50,38,23.5,77,6.2,210,sugarcane
+120,20,60,29.0,60,5.5,100,soybean
